@@ -7,7 +7,7 @@
   {
     public object Data;
 
-    public MValue(object d)
+    public MValue( object d )
     {
       Data = d;
     }
