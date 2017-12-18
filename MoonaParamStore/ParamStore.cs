@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MoonaParamStore
+namespace Moona.ParamStore
 {
   /// <summary>
   /// Store things and keep track of dirty entries
