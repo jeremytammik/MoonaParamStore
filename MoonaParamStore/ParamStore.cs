@@ -9,8 +9,7 @@ namespace Moona.ParamStore
     class ParamStore
     {
         Dictionary<MKey, MValue> _dict = new Dictionary<MKey, MValue>();
-        List<MValue> _dirty = new List<MValue>();
-
+        
         /// <summary>
         ///  return value or null
         /// </summary>
@@ -26,42 +25,39 @@ namespace Moona.ParamStore
         /// <summary>
         ///  Add a new value or update existing entry
         /// </summary>
-        public MValue Set(MKey k, object d)
+        public MValue Set(MKey k, MValue value)
         {
             MValue v;
-
             if (_dict.TryGetValue(k, out v))
             {
-                v.Data = d;
+                _dict[k] = value;
             }
             else
             {
-                v = new MValue(d);
-                _dict.Add(k, v);
+                _dict.Add(k, value);
             }
 
-            if (_dirty.Contains(v) == false)
-            {
-                _dirty.Add(v);
-            }
-
-            return v;
+            value.IsDirty = true;
+            return value;
         }
 
         /// <summary>
         /// Return dirty list
         /// </summary>
-        public List<MValue> GetDirty()
+        public List<MValue> GetDirtyClearFlags()
         {
-            return _dirty;
-        }
+            List<MValue> dirty = new List<MValue>();
 
-        /// <summary>
-        /// Clear dirty list
-        /// </summary>
-        public void ClearDirty()
-        {
-            _dirty.Clear();
+            foreach(MValue v in _dict.Values)
+            {
+                if(v.IsDirty)
+                {
+                    v.IsDirty = false;
+                    dirty.Add(v);
+                }
+            }
+            
+            return dirty;
         }
     }
 }
