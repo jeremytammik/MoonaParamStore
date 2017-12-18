@@ -2,13 +2,16 @@
 
 namespace Moona.ParamStore
 {
+  /// <summary>
+  /// Store things and keep track of dirty objects
+  /// </summary>
   class ParamStore
   {
     Dictionary<MKey, MValue> _dict = new Dictionary<MKey, MValue>();
     List<MValue> _dirty = new List<MValue>();
 
     /// <summary>
-    ///  Add a new value or update existing entry
+    ///  return value or null
     /// </summary>
     public MValue Get( MKey k )
     {
