@@ -1,4 +1,4 @@
-﻿namespace MoonaParamStore
+﻿namespace Moona
 {
   /// <summary>
   /// Either an int hash value or a chris-defined uint.

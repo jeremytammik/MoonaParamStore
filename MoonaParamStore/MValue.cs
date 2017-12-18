@@ -1,4 +1,4 @@
-﻿namespace MoonaParamStore
+﻿namespace Moona
 {
   /// <summary>
   /// An object to be stored and evaluated

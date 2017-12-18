@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MoonaParamStore
+namespace Moona.ParamStore
 {
   class ParamStore
   {
