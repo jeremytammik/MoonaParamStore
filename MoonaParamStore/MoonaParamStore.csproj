@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="MKey.cs" />
     <Compile Include="MValue.cs" />
     <Compile Include="ParamStore.cs" />
