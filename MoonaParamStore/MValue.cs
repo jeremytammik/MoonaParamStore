@@ -5,7 +5,6 @@
   /// </summary>
   internal class MValue
   {
-    public bool IsDirty = true;
     public object Data;
 
     public MValue( object d )
