@@ -9,7 +9,7 @@ namespace MoonaParamStore
     /// <summary>
     ///  Add a new value or update existing entry
     /// </summary>
-    private MValue Get( MKey k )
+    public MValue Get( MKey k )
     {
       MValue v;
 
@@ -21,7 +21,7 @@ namespace MoonaParamStore
     /// <summary>
     ///  Add a new value or update existing entry
     /// </summary>
-    private void Set( MKey k, object d )
+    public void Set( MKey k, object d )
     {
       MValue v;
 
@@ -34,5 +34,7 @@ namespace MoonaParamStore
         _dict.Add( k, new MValue( d ) );
       }
     }
+
+
   }
 }
