@@ -32,8 +32,10 @@ namespace MoonaParamStore
       }
       else
       {
-        _dict.Add( k, new MValue( d ) );
+        v = new MValue( d );
+        _dict.Add( k, v );
       }
+      _dirty.Add( v );
     }
 
     /// <summary>
