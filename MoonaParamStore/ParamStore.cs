@@ -5,6 +5,7 @@ namespace MoonaParamStore
   class ParamStore
   {
     Dictionary<MKey, MValue> _dict = new Dictionary<MKey, MValue>();
+    List<MValue> _dirty = new List<MValue>();
 
     /// <summary>
     ///  Add a new value or update existing entry
@@ -35,6 +36,20 @@ namespace MoonaParamStore
       }
     }
 
+    /// <summary>
+    /// Return dirty list
+    /// </summary>
+    public List<MValue> GetDirty()
+    {
+      return _dirty;
+    }
 
+    /// <summary>
+    /// Clear dirty list
+    /// </summary>
+    public void ClearDirty()
+    {
+      _dirty.Clear();
+    }
   }
 }
