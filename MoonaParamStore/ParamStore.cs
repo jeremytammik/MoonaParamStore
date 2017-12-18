@@ -4,6 +4,7 @@ namespace Moona.ParamStore
 {
   /// <summary>
   /// Store things and keep track of dirty objects
+  /// https://github.com/jeremytammik/MoonaParamStore
   /// </summary>
   class ParamStore
   {
