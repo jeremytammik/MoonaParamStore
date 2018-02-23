@@ -1,19 +1,66 @@
-﻿using System.Collections.Generic;
-
-namespace Moona.ParamStore
+﻿namespace Moona.RTPC
 {
-    /// <summary>
-    /// Store things and keep track of dirty objects
-    /// https://github.com/jeremytammik/MoonaParamStore
-    /// </summary>
-    class ParamStore
+	using System.Collections.Generic;
+
+	/// <summary>
+	/// Store things and keep track of dirty objects
+	/// https://github.com/jeremytammik/MoonaParamStore
+	/// </summary>
+	class ParamStore
     {
-        Dictionary<MKey, MValue> _dict = new Dictionary<MKey, MValue>();
-        
+        // Value store
+        private Dictionary<MKey, MValue> _dict;
+        private List<MValue> _values;
+
+        // Key Caching
+        private static Dictionary<uint, MKey> _idKeyCache;
+        private static Dictionary<int, MKey> _hashKeyCache;
+
+        public ParamStore()
+        {
+            _dict = new Dictionary<MKey, MValue>();
+            _values = new List<MValue>();
+
+            if (_idKeyCache == null)
+                _idKeyCache = new Dictionary<uint, MKey>();
+
+            if (_hashKeyCache == null)
+                _hashKeyCache = new Dictionary<int, MKey>();
+        }
+
+        /// <summary>
+        /// retrieves cached MKey or generates it if needed
+        /// </summary>
+        public MKey GetKey(int hash)
+        {
+            MKey k;
+            if (_hashKeyCache.TryGetValue(hash, out k) == false)
+            {
+                k = new MKey(hash);
+                _hashKeyCache.Add(hash, k);
+            }
+
+            return k;
+        }
+        /// <summary>
+        /// retrieves cached MKey or generates it if needed
+        /// </summary>
+        public MKey GetKey(uint id)
+        {
+            MKey k;
+            if (_idKeyCache.TryGetValue(id, out k) == false)
+            {
+                k = new MKey(id);
+                _idKeyCache.Add(id, k);
+            }
+
+            return k;
+        }
+
         /// <summary>
         ///  return value or null
         /// </summary>
-        public MValue Get(MKey k)
+        public MValue GetValue(MKey k)
         {
             MValue v;
 
@@ -24,8 +71,10 @@ namespace Moona.ParamStore
 
         /// <summary>
         ///  Add a new value or update existing entry
+        ///  MValues are reference types 
+        ///  you can also cache them and simply set their dirty flag
         /// </summary>
-        public MValue Set(MKey k, MValue value)
+        public MValue SetValue(MKey k, MValue value)
         {
             MValue v;
             if (_dict.TryGetValue(k, out v))
@@ -35,6 +84,7 @@ namespace Moona.ParamStore
             else
             {
                 _dict.Add(k, value);
+				_values.Add(value);
             }
 
             value.IsDirty = true;
@@ -42,18 +92,24 @@ namespace Moona.ParamStore
         }
 
         /// <summary>
-        /// Return dirty list
+        /// Return list of values with their IsDirty flag set and reset the dirty flag
         /// </summary>
         public List<MValue> GetDirtyClearFlags()
         {
-            List<MValue> dirty = new List<MValue>();
+            List<MValue> dirty = null;
 
-            foreach(MValue v in _dict.Values)
+            for(int i = 0; i < _values.Count; i++)
             {
-                if(v.IsDirty)
+				MValue v = _values[i];
+
+				if (v.IsDirty)
                 {
                     v.IsDirty = false;
-                    dirty.Add(v);
+
+					if (dirty == null)
+						dirty = new List<MValue>();
+
+					dirty.Add(v);
                 }
             }
             

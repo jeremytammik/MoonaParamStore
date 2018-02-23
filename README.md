@@ -1,11 +1,11 @@
 # MoonaParamStore
 
-Store and evaluate real-time audio parameter data.
+Store and evaluate real-time parameter data fo the proprietary Moona audio engine.
 
 
 ## Authors
 
-- [Chris Tammik](https://github.com/chtammik)
+- [Chris Tammik](https://github.com/chtammik), audio programmer at [A Shell In The Pit](http://www.ashellinthepit.com/)
 - Jeremy Tammik,
 [The Building Coder](http://thebuildingcoder.typepad.com),
 [Forge](http://forge.autodesk.com) [Platform](https://developer.autodesk.com) Development,
