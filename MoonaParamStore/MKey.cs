@@ -1,7 +1,7 @@
 ﻿namespace Moona
 {
     /// <summary>
-    /// Either an int hash value or a chris-defined uint.
+    /// Either an int hash value or a maris-defined uint.
     /// </summary>
     internal class MKey : System.IComparable
     {
